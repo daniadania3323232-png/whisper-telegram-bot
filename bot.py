@@ -10,13 +10,14 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-# ⚡ ВАЖНО: Получаем токен из переменных окружения Railway
-BOT_TOKEN = os.environ.get('BOT_TOKEN', '8301531662:AAFMpn6fzibGRFiNHC42Ehlk6Cz988Y-zVQ')
+# ⚡ ТОКЕН НАПРЯМУЮ (для Render)
+BOT_TOKEN = "8301531662:AAFMpn6fzibGRFiNHC42Ehlk6Cz988Y-zVQ"
+
 private_messages = {}
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "🤖 Whisper Bot - Работает на Railway!\n\n"
+        "🤖 Whisper Bot - Работает на Render!\n\n"
         "💡 Используйте: @whispertelegrammbot сообщение @username",
         parse_mode='HTML'
     )
@@ -145,13 +146,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"❌ Ошибка в button_handler: {e}")
 
 def main():
-    print("🚀 Whisper Bot запускается на Railway...")
-    
-    # Проверяем что токен есть
-    if not BOT_TOKEN or BOT_TOKEN == '8301531662:AAFMpn6fzibGRFiNHC42Ehlk6Cz988Y-zVQ':
-        print("❌ ОШИБКА: BOT_TOKEN не настроен!")
-        print("💡 Добавьте BOT_TOKEN в Variables в Railway")
-        return
+    print("🚀 Whisper Bot запускается на Render...")
     
     try:
         application = Application.builder().token(BOT_TOKEN).build()
@@ -161,7 +156,7 @@ def main():
         application.add_handler(InlineQueryHandler(inline_query))
         application.add_handler(CallbackQueryHandler(button_handler))
         
-        print("✅ Бот успешно запущен на Railway!")
+        print("✅ Бот успешно запущен на Render!")
         print("👤 Юзернейм: @whispertelegrammbot")
         print("🌐 Бот работает 24/7!")
         
@@ -169,6 +164,10 @@ def main():
         
     except Exception as e:
         print(f"❌ Ошибка при запуске: {e}")
+        import traceback
+        traceback.print_exc()
 
 if __name__ == '__main__':
+    main()
+
     main()
